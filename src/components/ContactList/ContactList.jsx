@@ -12,11 +12,30 @@ const ContactList = () => {
   const handleDelete = e => {
     dispatch(deleteContacts(e.target.id));
   };
+
+  const handleFilteredContacts = (contacts, filter = '') => {
+    return contacts.filter(contact => {
+      return (
+        typeof contact.name === 'string' &&
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+      );
+    });
+  };
+
+  const filteredContacts = Array.isArray(contacts)
+    ? handleFilteredContacts(contacts, filter)
+    : [];
+
+  if (!Array.isArray(contacts)) {
+    console.error('Contacts is not an array:', contacts);
+    return null;
+  }
+
   return (
     <div className={styles.contactSection}>
       <h3 className={styles.contactList}>Contact List:</h3>
       <ul className={styles.contactItem}>
-        {contacts.map(contact => (
+        {filteredContacts.map(contact => (
           <li key={contact.id} className={styles.contactNr}>
             {`${contact.name}: ${contact.number}`}
             <div className={styles.deleteButonsSection}>

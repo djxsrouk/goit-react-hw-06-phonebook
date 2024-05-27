@@ -8,7 +8,7 @@ function Filter() {
   const dispatch = useDispatch();
   const filter = useSelector(getStatusFilter);
 
-  const handleFilterChange = event => {
+  const handleFilter = event => {
     dispatch(setStatusFilter(event.target.value));
   };
 
@@ -21,7 +21,7 @@ function Filter() {
         name="filter"
         value={filter}
         placeholder="Search contact"
-        onChange={handleFilterChange}
+        onChange={handleFilter}
         required
       />
     </div>
